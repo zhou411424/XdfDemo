@@ -64,7 +64,7 @@ public interface BaseApiService {
      */
     @FormUrlEncoded
     @POST("{path}")
-    <T> Call<T> postByRetrofit(@Path("path") String path, @QueryMap Map<String, String> maps);
+    <T> Call<T> postByRetrofit(@Path("path") String path, @FieldMap Map<String, String> maps);
 
     @FormUrlEncoded
     @POST("{path}")

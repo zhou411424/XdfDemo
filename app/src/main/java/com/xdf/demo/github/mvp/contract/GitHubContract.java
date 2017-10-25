@@ -16,6 +16,8 @@ import io.reactivex.Observable;
 public interface GitHubContract {
     interface View extends BaseContract.IView {
         Activity getActivity();
+
+        void getRepoSuccess(List<Repo> repos);
     }
 
     interface Model extends BaseContract.IModel {

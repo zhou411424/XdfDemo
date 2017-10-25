@@ -1,6 +1,7 @@
 package com.xdf.demo.library.mvp;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.xdf.demo.library.rxbus2.RxBus;
 
@@ -11,6 +12,7 @@ import io.reactivex.disposables.Disposable;
  * Created by zhouliancheng on 2017/10/17.
  */
 public class BasePresenter<M extends BaseContract.IModel, V extends BaseContract.IView> implements BaseContract.IPresenter {
+    private static final String TAG = "BasePresenter";
     private boolean mEnableRxBus = true;
     protected BaseContract.IModel mModel;
     protected BaseContract.IView mView;
@@ -70,6 +72,7 @@ public class BasePresenter<M extends BaseContract.IModel, V extends BaseContract
 
     @Override
     public void onStart() {
+        Log.d(TAG, "onStart==>");
         if (useRxBus()) {
             RxBus.getDefault().register(this);
         }
@@ -80,6 +83,7 @@ public class BasePresenter<M extends BaseContract.IModel, V extends BaseContract
      */
     @Override
     public void onDestroy() {
+        Log.d(TAG, "onDestroy==>");
         if (useRxBus()) {
             RxBus.getDefault().unregister(this);
         }

@@ -140,12 +140,12 @@ public class RetrofitManager {
         return mRetrofit.create(service);
     }
 
-    public <T> void getByRxJava(String url, Map paramMap, NetworkCallback<T> networkCallback) {
-        requestByRxJava(mBaseApiService.getByRxJava(url, paramMap), (NetworkCallback<Object>) networkCallback);
+    public <T> Disposable getByRxJava(String url, Map paramMap, NetworkCallback<T> networkCallback) {
+        return requestByRxJava(mBaseApiService.getByRxJava(url, paramMap), networkCallback);
     }
 
-    public <T> void postByRxJava(String url, Map<String, String> paramMap, NetworkCallback<T> networkCallback) {
-        requestByRxJava(mBaseApiService.postByRxJava(url, paramMap), (NetworkCallback<Object>) networkCallback);
+    public <T> Disposable postByRxJava(String url, Map<String, String> paramMap, NetworkCallback<T> networkCallback) {
+        return requestByRxJava(mBaseApiService.postByRxJava(url, paramMap), (NetworkCallback<Object>) networkCallback);
     }
 
     public <T> void getByRetrofit(String url, Map paramMap, RetrofitCallback<T> retrofitCallback) {
