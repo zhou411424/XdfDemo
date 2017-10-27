@@ -28,7 +28,7 @@ public class AppModule {
 
     @Singleton
     @Provides
-    SharedPreferences provideSharedPreferences() {
+    public SharedPreferences provideSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(mApplication);
     }
 }

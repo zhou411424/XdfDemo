@@ -3,15 +3,17 @@ package com.xdf.demo.github.mvp.presenter;
 import android.content.Context;
 import android.util.Log;
 
+import com.xdf.demo.app.XdfApplication;
 import com.xdf.demo.github.entity.Repo;
 import com.xdf.demo.github.mvp.contract.GitHubContract;
 import com.xdf.demo.github.mvp.model.GitHubModel;
-import com.xdf.demo.library.http.RetrofitManager;
 import com.xdf.demo.library.http.XdfException;
 import com.xdf.demo.library.http.callback.NetworkCallback;
 import com.xdf.demo.library.mvp.BasePresenter;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
@@ -22,19 +24,18 @@ import io.reactivex.disposables.Disposable;
 
 public class GitHubPresenterImpl extends BasePresenter<GitHubContract.Model, GitHubContract.View> implements GitHubPresenter {
     private static final String TAG = "GitHubPresenterImpl";
-    private Context context;
     private GitHubModel mModel;
 
-    public GitHubPresenterImpl(Context context, GitHubContract.View view) {
+    @Inject
+    public GitHubPresenterImpl(GitHubContract.View view) {
         super(view);
-        this.context = context;
-        mModel = new GitHubModel(context);
+        mModel = new GitHubModel();
     }
 
     @Override
     public void listRepos() {
         Observable<List<Repo>> observable = mModel.listRepos("zhou411424");
-        Disposable disposable = RetrofitManager.getInstance(context).requestByRxJava(observable, new NetworkCallback<List<Repo>>() {
+        Disposable disposable = XdfApplication.getInstance().getAppComponent().getRetrofitManager().requestByRxJava(observable, new NetworkCallback<List<Repo>>() {
             @Override
             public void onSuccess(List<Repo> repos) {
                 if(mView instanceof GitHubContract.View) {

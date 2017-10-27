@@ -7,12 +7,17 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.xdf.demo.R;
+import com.xdf.demo.github.di.component.DaggerGitHubComponent;
+import com.xdf.demo.github.di.component.GitHubComponent;
+import com.xdf.demo.github.di.module.GitHubModule;
 import com.xdf.demo.github.entity.Repo;
 import com.xdf.demo.github.mvp.contract.GitHubContract;
 import com.xdf.demo.github.mvp.presenter.GitHubPresenter;
 import com.xdf.demo.github.mvp.presenter.GitHubPresenterImpl;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by zhouliancheng on 2017/10/19.
@@ -21,7 +26,9 @@ import java.util.List;
 public class GitHubActivity extends Activity implements GitHubContract.View{
 
     private static final String TAG = "GitHubActivity";
-    private GitHubPresenter mGitHubPresenter;
+    @Inject
+    GitHubPresenter mGitHubPresenter;
+
     private TextView repoCountTv;
 
     @Override
@@ -30,7 +37,8 @@ public class GitHubActivity extends Activity implements GitHubContract.View{
         setContentView(R.layout.activity_github);
         repoCountTv = findViewById(R.id.tv_repos_count);
 
-        mGitHubPresenter = new GitHubPresenterImpl(this, this);
+        DaggerGitHubComponent.builder().gitHubModule(new GitHubModule(this)).build().inject(this);
+
         mGitHubPresenter.listRepos();
     }
 

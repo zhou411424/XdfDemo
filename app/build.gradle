@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 26
@@ -54,8 +55,11 @@ dependencies {
     compile 'com.github.VictorAlbertos.Jolyglot:gson:0.0.3'
 
     // Google Dagger2
+    // apt command comes from the android-apt plugin(使用APT生成工具，生成需要的DI代码)
+    apt 'com.google.dagger:dagger-compiler:2.12'
     compile 'com.google.dagger:dagger:2.12'
-//    annotationProcessor 'com.google.dagger:dagger-compiler:2.x'
+    //JSR250的jar包，使用这个和使用glassFish的那个一样，仅为了使用@Inject 和@Named注解
+    provided 'javax.annotation:jsr250-api:1.0'
 
     //适应Rxbus2的RxRelay2
     compile 'com.jakewharton.rxrelay2:rxrelay:2.0.0'

@@ -32,7 +32,7 @@ public class RetrofitModule {
      */
     @Singleton
     @Provides
-    RetrofitManager provideRetrofitManager() {
+    public RetrofitManager provideRetrofitManager() {
         return RetrofitManager.getInstance(context, baseUrl, headers);
     }
 
